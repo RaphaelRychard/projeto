@@ -1,4 +1,4 @@
-import { api } from '../api-client'
+import { api } from "../api-client"
 
 export interface ShortLink {
   id: string
@@ -12,9 +12,7 @@ export interface FetchShortLinksResponse {
 }
 
 export async function fetchShortLinks() {
-  const result = api
-    .get('short-links')
-    .json<FetchShortLinksResponse>()
+  const result = await api.get("short-links").json<FetchShortLinksResponse>()
 
   return result
 }

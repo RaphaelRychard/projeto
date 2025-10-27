@@ -1,6 +1,12 @@
-import ky from 'ky';
-import { env } from 'process';
+import ky from "ky"
+
+const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3333"
 
 export const api = ky.create({
-  prefixUrl: process.env.NEXT_PUBLIC_API_URL, // sem import do 'process'
+  prefixUrl: apiUrl,
+  timeout: 30000,
+  retry: {
+    limit: 2,
+    methods: ["get"],
+  },
 })

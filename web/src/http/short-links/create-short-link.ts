@@ -1,4 +1,4 @@
-import { api } from '../api-client'
+import { api } from "../api-client"
 
 interface CreateShortLinkRequest {
   origemUrl: string
@@ -9,14 +9,10 @@ interface CreateShortLinkResponse {
   id: string
 }
 
-export async function createShortLink({
-  origemUrl,
-  shortLink,
-}: CreateShortLinkRequest) {
+export async function createShortLink({ origemUrl, shortLink }: CreateShortLinkRequest) {
   return api
-    .post('short-links', {
+    .post("short-links", {
       json: { origemUrl, shortLink },
-      next: { tags: ['short-links'] },
     })
     .json<CreateShortLinkResponse>()
 }
