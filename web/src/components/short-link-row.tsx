@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
 import { deleteShortLink } from "@/http/short-links/delete-short-link"
 import type { ShortLinkItem } from "./short-link-list"
+import { useNavigate } from "react-router-dom"
 
 export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
   const queryClient = useQueryClient()
@@ -21,6 +22,11 @@ export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
     },
   })
 
+  const navigate = useNavigate();
+  const handleRedirect = () => {
+    navigate(`/redirect?url=${encodeURIComponent(link.originUrl)}`);
+  };
+
   const copyToClipboard = async (url: string) => {
     await navigator.clipboard.writeText(url)
     toast.success("Link copiado!", { description: url })
@@ -29,14 +35,12 @@ export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
   return (
     <div className="flex items-center justify-between rounded-lg border p-3">
       <div className="flex-1 min-w-0">
-        <a
-          href={`https://brev.ly/${link.originUrl}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-semibold text-primary hover:underline block"
+        <button
+          onClick={handleRedirect}
+          className="font-semibold text-primary hover:underline block text-left"
         >
           brev.ly/{link.shortLink}
-        </a>
+        </button>
         <p className="truncate text-sm text-muted-foreground">{link.originUrl}</p>
       </div>
 
