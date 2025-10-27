@@ -30,7 +30,7 @@ export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
     <div className="flex items-center justify-between rounded-lg border p-3">
       <div className="flex-1 min-w-0">
         <a
-          href={`https://brev.ly/${link.shortLink}`}
+          href={`https://brev.ly/${link.originUrl}`}
           target="_blank"
           rel="noopener noreferrer"
           className="font-semibold text-primary hover:underline block"

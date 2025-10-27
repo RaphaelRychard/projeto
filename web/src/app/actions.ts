@@ -27,15 +27,8 @@ export async function createShortLinkAction(data: FormData) {
     }
   }
 
-  const { origemUrl, shortLink } = parsed.data
-
-
   try {
-    await createShortLink({
-      origemUrl,
-      shortLink,
-    })
-
+    await createShortLink(parsed.data)
     revalidateTag("short-links")
 
     return {
@@ -58,7 +51,7 @@ export async function createShortLinkAction(data: FormData) {
 }
 
 const deleteSchema = z.object({
-  linkId: z.string().cuid2(),
+  id: z.string().cuid2(),
 })
 
 export async function deleteShortLinkAction(data: FormData) {
@@ -72,11 +65,8 @@ export async function deleteShortLinkAction(data: FormData) {
     }
   }
 
-
   try {
-    const { linkId } = parsed.data
-
-    await deleteShortLink({ linkId })
+    await deleteShortLink(parsed.data.id)
     revalidateTag("short-links")
 
     return {
@@ -96,11 +86,11 @@ export async function deleteShortLinkAction(data: FormData) {
 
 export async function exportShortLinksAction() {
   try {
-    const { reportUrl } = await exportShortLinks()
+    const { reportUrl } = await exportShortLinks()    
 
     return {
       success: true,
-      message: reportUrl,
+      message: reportUrl, // retorna a URL do relatório
       errors: null,
     }
   } catch {

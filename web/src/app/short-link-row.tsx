@@ -1,14 +1,15 @@
 "use client"
 
-import { Copy } from "lucide-react"
+import { Copy, Trash2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-
+import { useFormState } from "@/hooks/use-form-state"
+import { deleteShortLinkAction } from "./actions"
 import type { ShortLinkItem } from "./short-link-list"
-import { ShortLinkDelete } from "./short-link-delete"
 
 export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
   const { toast } = useToast()
+  const [, handleDelete] = useFormState(deleteShortLinkAction, { resetOnSuccess: true })
 
   const copyToClipboard = async (url: string) => {
     await navigator.clipboard.writeText(url)
@@ -38,7 +39,7 @@ export function ShortLinkRow({ link }: { link: ShortLinkItem }) {
           <Copy className="h-4 w-4" />
         </Button>
 
-        <ShortLinkDelete linkId={link.id} />
+        <deleteShortLinkActionForm linkId={link.id} />
       </div>
     </div>
   )

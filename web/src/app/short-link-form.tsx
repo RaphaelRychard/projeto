@@ -49,6 +49,7 @@ export function ShortLinkForm() {
             )}
           </div>
 
+          {/* Campo link encurtado */}
           <div className="space-y-2">
             <Label htmlFor="shortLink" className="text-xs font-semibold text-muted-foreground">
               LINK ENCURTADO
@@ -75,6 +76,7 @@ export function ShortLinkForm() {
             )}
           </div>
 
+          {/* Botão */}
           <Button
             type="submit"
             disabled={isPending}
