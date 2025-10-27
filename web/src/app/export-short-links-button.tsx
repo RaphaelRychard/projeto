@@ -11,7 +11,6 @@ export function ExportShortLinksButton() {
       const result = await exportShortLinksAction()
 
       if (result.success && result.message) {
-        // abre a URL em uma nova aba
         window.open(result.message, "_blank")
       }
 
@@ -20,7 +19,7 @@ export function ExportShortLinksButton() {
   )
 
   return (
-    <form action={handleExport.bind}>
+    <form onSubmit={handleExport}>
       <Button type="submit" variant="outline" size="sm" disabled={isPending}>
         <Download className="w-4 h-4 mr-2" />
         {isPending ? "Gerando..." : "Baixar CSV"}

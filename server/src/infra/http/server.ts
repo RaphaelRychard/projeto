@@ -24,7 +24,11 @@ app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 app.setErrorHandler(fastifyErrorHandler)
 
-app.register(fastifyCors, { origin: '*' })
+app.register(fastifyCors, {
+  origin: true, // permite qualquer origem
+  methods: ['*'],
+})
+
 
 app.register(fastifySwagger, {
   openapi: {
